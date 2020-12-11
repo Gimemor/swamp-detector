@@ -30,6 +30,7 @@
     "bootstrap": "^4.5.0",
     "leaflet": "^1.7.1",
     "ng-bootstrap": "^1.6.3",
+    "ngx-file-drop": "^10.1.1",
     "ngx-ui-loader": "^10.0.0",
     "rxjs": "~6.6.3",
     "tslib": "^2.0.0",
