@@ -1,3 +1,5 @@
-agm-map {
-    height: 300px;
-  }
+.geoblock {
+    height: 500px;
+    width: 500px;
+    margin-left: 8px;
+}
