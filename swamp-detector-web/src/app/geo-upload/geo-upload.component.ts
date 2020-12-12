@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop';
+import { BehaviorSubject, Subject, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-geo-upload',
@@ -7,13 +8,13 @@ import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 
   styleUrls: ['./geo-upload.component.scss']
 })
 export class GeoUploadComponent implements OnInit {
+  @Output() public uploadedFile: EventEmitter<File> = new EventEmitter<File>();
 
+  public files: NgxFileDropEntry[] = [];
   constructor() { }
 
   ngOnInit() {
   }
-
-  public files: NgxFileDropEntry[] = [];
 
   public dropped(files: NgxFileDropEntry[]) {
     this.files = files;
@@ -26,22 +27,7 @@ export class GeoUploadComponent implements OnInit {
 
           // Here you can access the real file
           console.log(droppedFile.relativePath, file);
-
-          /**
-          // You could upload it like this:
-          const formData = new FormData()
-          formData.append('logo', file, relativePath)
-
-          // Headers
-          const headers = new HttpHeaders({
-            'security-token': 'mytoken'
-          })
-
-          this.http.post('https://mybackend.com/api/upload/sanitize-and-save-logo', formData, { headers: headers, responseType: 'blob' })
-          .subscribe(data => {
-            // Sanitized logo returned from backend
-          })
-          **/
+          this.uploadedFile.emit(file);
 
         });
       } else {
@@ -52,11 +38,11 @@ export class GeoUploadComponent implements OnInit {
     }
   }
 
-  public fileOver(event){
+  public fileOver(event) {
     console.log(event);
   }
 
-  public fileLeave(event){
+  public fileLeave(event) {
     console.log(event);
   }
 }

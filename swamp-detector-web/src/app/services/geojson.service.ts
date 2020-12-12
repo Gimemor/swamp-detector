@@ -10,6 +10,6 @@ export class GeojsonService {
   constructor(private http: HttpClient) { }
 
   getStateShapes(): Observable<any> {
-    return this.http.get('/assets/usa-states.json');
+    return this.http.get('/assets/Marshes.geojson');
   }
 }

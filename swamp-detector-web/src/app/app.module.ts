@@ -14,6 +14,7 @@ import { AppRoutingModule } from './app-routing/app-routing.module';
 import { NgxFileDropModule } from 'ngx-file-drop';
 import { GeoUploadComponent } from './geo-upload/geo-upload.component';
 import { GeoSwampListComponent } from './geo-swamp-list/geo-swamp-list.component';
+import { GeoStaticMapComponent } from './geo-static-map/geo-static-map.component';
 
 @NgModule({
    declarations: [
@@ -21,19 +22,20 @@ import { GeoSwampListComponent } from './geo-swamp-list/geo-swamp-list.component
       GeoInputComponent,
       GeoMapComponent,
       GeoUploadComponent,
-      GeoSwampListComponent
+      GeoSwampListComponent,
+      GeoStaticMapComponent
    ],
    imports: [
-	 BrowserModule,
-	 NavMenuModule,
-	 HttpClientModule,
-	 AppRoutingModule,
-	 LeafletModule,
-	 NgxUiLoaderModule,
-	 NgxFileDropModule,
-	 MaterialModule,
-	 NgbModule
-	],
+      BrowserModule,
+      NavMenuModule,
+      HttpClientModule,
+      AppRoutingModule,
+      LeafletModule,
+      NgxUiLoaderModule,
+      NgxFileDropModule,
+      MaterialModule,
+      NgbModule
+   ],
    providers: [],
    bootstrap: [
       AppComponent

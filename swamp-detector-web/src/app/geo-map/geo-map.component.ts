@@ -1,23 +1,25 @@
 import { GeojsonService } from './../services/geojson.service';
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import * as L from 'leaflet';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-geo-map',
   templateUrl: './geo-map.component.html',
   styleUrls: ['./geo-map.component.scss']
 })
-export class GeoMapComponent implements AfterViewInit  {
+export class GeoMapComponent implements AfterViewInit {
+  @Input() public geoJson: BehaviorSubject<string>;
 
   private map;
   private states;
-
+  private layers: L.Layer[] = [];
   constructor(
-              private geojsonService: GeojsonService) { }
+    private geojsonService: GeojsonService) { }
 
   ngAfterViewInit(): void {
     this.initMap();
-    this.geojsonService.getStateShapes().subscribe(states => {
+    this.geoJson.subscribe(states => {
       this.states = states;
       this.initStatesLayer();
     });
@@ -25,18 +27,19 @@ export class GeoMapComponent implements AfterViewInit  {
 
   private initMap(): void {
     this.map = L.map('map', {
-      center: [ 39.8282, -98.5795 ],
+      center: [51.86227981054269, 41.24489088647922],
       zoom: 3
     });
     const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
-      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     });
     tiles.addTo(this.map);
   }
 
-  
+
   private initStatesLayer() {
+    this.layers.forEach(x => this.map.removeLayer(x));
+    this.layers = [];
     const stateLayer = L.geoJSON(this.states, {
       style: (feature) => ({
         weight: 3,
@@ -46,7 +49,7 @@ export class GeoMapComponent implements AfterViewInit  {
         fillColor: '#6DB65B'
       })
     });
-
+    this.layers.push(stateLayer);
     this.map.addLayer(stateLayer);
   }
 }

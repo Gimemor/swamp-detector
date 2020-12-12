@@ -2,8 +2,9 @@
 <!-- this creates a google map on the page with the given lat/lng from -->
 <!-- the component as the initial center of the map: -->
 <div class="d-flex flex-row">
-  <app-geo-upload></app-geo-upload>
-  <app-geo-map></app-geo-map>
+  <app-geo-upload (uploadedFile)="handleFileUpload($event)"></app-geo-upload>
+  <app-geo-map [geoJson]="currentGeoJson"></app-geo-map>
   <app-geo-swamp-list></app-geo-swamp-list>
+  <app-geo-static-map></app-geo-static-map>
 </div>
 <ngx-ui-loader></ngx-ui-loader>
